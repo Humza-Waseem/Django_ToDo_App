@@ -1,0 +1,20 @@
+<h2>Your Tasks</h2>
+<hr>
+    {% for task in tasks %}
+    
+    {% if tasks is None%}
+    <h3>No items to see.....</h3>
+    {%endif%}
+
+    <div> 
+     <h3>{{ task.title}} <sub>{{ task.dueDate}}</sub></h3>
+     {%if task.description == '' %}
+        <span> No Description</span>
+    {%else%}
+     <span>  {{ task.description}}
+     </span>
+     
+     {%endif%}
+     <hr>
+    </div>
+    {% endfor %}
