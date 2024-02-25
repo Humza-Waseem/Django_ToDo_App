@@ -1,0 +1,28 @@
+<h2>Your Tasks           </h2>
+
+<a href = "{% url 'create-task' %}" >Create New ToDo</a>
+<hr>
+    {% for task in tasks %}
+    
+    {% if tasks is None%}
+    <h3>No items to see.....</h3>
+    {%endif%}
+
+    <div> 
+    <h3><SMALL><a href = "{% url 'edit-task' task.id %}" >edit</a></SMALL>
+    <h3><SMALL><a href = "{% url 'delete-task' task.id %}" >Delete</a></SMALL>
+
+        <a href = "{% url 'task' task.id%}" >   {{ task.title}}</a> 
+        <sub>{{ task.dueDate}}
+        </sub>
+    </h3>
+     {% if task.description == '' %}
+        <span> No Description</span>
+    {% else%}
+     <span>  {{ task.description}}
+     </span>
+     
+     {%endif%}
+     <hr>
+    </div>
+    {% endfor %}
