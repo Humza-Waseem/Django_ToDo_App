@@ -1,10 +1,11 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,redirect
 from .models import Task
 
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -17,6 +18,15 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 #     return render(request, 'base/tasks.html',context)
 
 
+class UserLogin(LoginView):
+    template_name = 'base/UserLogin.html'
+    fields = '__all__'
+    redirect_authenticated_user = True # this allows us to redirect the user to the home page if they are already logged in. Meaning, if a user is alreadt login we will not show the login page to him again.
+    # success_url = '/'
+    success_url = '/'
+    # def get_success_url(self):
+    #     return reverse_lazy('/')
+    
 class TaskList(ListView):
     model = Task
     template_name = 'base/tasksHome.html'
