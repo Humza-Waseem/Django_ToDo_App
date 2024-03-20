@@ -25,7 +25,10 @@ class UserLogin(LoginView):
     # success_url = '/'
     success_url = '/'
     # def get_success_url(self):
-    #     return reverse_lazy('/')
+    #     return reverse_lazy
+    #############
+    ####
+    #
     
 class TaskList(ListView):
     model = Task
