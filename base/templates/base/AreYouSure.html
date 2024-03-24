@@ -1,0 +1,11 @@
+<div  class = "AreYouSureForm">
+    <form method = "POST" action = "">
+      {% csrf_token %}
+      <p> Are you sure you want to {{Name}}   </p> <br>  {% comment %} using obj here to make it a universal delete   template  {% endcomment %}
+      <a href = "{{request.META.HTTP_REFERER}}"> Go Back</a>  {% comment %} going back to the previous page if not Confirm {% endcomment %}
+      <input type ="submit" value = "Confirm" , name = "ConfirmButton">
+    </form>
+</div>
+
+
+

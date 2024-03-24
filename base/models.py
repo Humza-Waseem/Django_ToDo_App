@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User   # the user model takes care of our User Info like username, password, email, etc
 
 # Create your models here.
 
