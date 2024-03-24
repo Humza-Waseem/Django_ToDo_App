@@ -7,7 +7,7 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('',TaskList.as_view(),name = 'tasksHome'),
-    path('Login/',UserLogin.as_view(), name = "UserLogin"),
+    path('UserLogin/',UserLogin.as_view(), name = "UserLogin"),
     # path('Logout/',LogoutView.as_view(next_page = 'UserLogin'), name = 'UserLogout'),#we can set the next_page to the login page here as well as in the views.py file at the cbv of UserLogout
 
     path('Logout/',UserLogout,name = 'UserLogout'),

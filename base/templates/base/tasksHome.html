@@ -1,10 +1,11 @@
 <div class = "navBar"> 
     {% if request.user.is_authenticated %}
-        <h2> Welcome {{ request.user}} !</h2>
+        <h2> Welcome Mr. {{ request.user}} !</h2>
         <a href = "{% url 'UserLogout'%}" >Logout</a>
         <a href = "" >Profile</a>
     {% else %}
         <a href = "{% url 'UserLogin' %}" > Login </a>
+        <p> You are Logged Out! </p>
         {% comment %} <a href = "{% url 'register' %}" >Register</a> {% endcomment %}
     {% endif %}
 </div>
