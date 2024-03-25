@@ -1,7 +1,13 @@
 <div class = "navBar"> 
     {% if request.user.is_authenticated %}
         <h2> Welcome Mr. {{ request.user}} !</h2>
-        <a href = "{% url 'UserLogout'%}" >Logout</a>
+        {% comment %} <a href = "{% url 'UserLogout'%}" >Logout</a> {% endcomment %}
+
+        <form action="{% url 'UserLogout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+
         <a href = "" >Profile</a>
     {% else %}
         <a href = "{% url 'UserLogin' %}" > Login </a>
@@ -21,11 +27,16 @@
       
     
            <div> 
-           <h3><SMALL><a href = "{% url 'edit-task' task.id %}" >edit</a></SMALL>
-           <h3><SMALL><a href = "{% url 'delete-task' task.id %}" >Delete</a></SMALL>
+           <h3><SMALL><a href = "{% url 'edit-task' task.id %}" >edit</a>
+                      <a href = "{% url 'delete-task' task.id %}" >Delete</a>
+               </SMALL>
+            </h3>
+           
+            <h3>
 
                <a href = "{% url 'task' task.id%}" >   {{ task.title}}</a> 
-               <sub>{{ task.dueDate}} </sub>
+               <sub><strong>DueDate: </strong>{{ task.dueDate}} </sub>
+               <h3>Complete : <SMALL> {{task.complete}}</SMALL> </h3>
            </h3>
         {% if task.description == '' %}
                <span> No Description</span>

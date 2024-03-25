@@ -25,9 +25,9 @@ from django.contrib.auth import logout
 #     template_name = 'base/AreYouSure.html'
 #     success_url = 'tasksHome'
 
-def UserLogout(request):  # creating this view to so that   
-    logout(request)   # user presses the logout button then its session will be deleted from the database, and the user will be logged out
-    return redirect('tasksHome')   # and the user is redirected to the home page..
+# def UserLogout(request):  # creating this view to so that   
+#     logout(request)   # user presses the logout button then its session will be deleted from the database, and the user will be logged out
+#     return redirect('tasksHome')   # and the user is redirected to the home page..
 
 class UserLogin(LoginView):
     template_name = 'base/UserLogin.html'
@@ -38,10 +38,20 @@ class UserLogin(LoginView):
         return reverse_lazy('tasksHome')
     
     
-class TaskList(ListView):
+class TaskList(LoginRequiredMixin,ListView):  
     model = Task
     template_name = 'base/tasksHome.html'
     context_object_name = 'tasks'   # This is used to specify the name of the object that we want to use in the template. In this case, we are using tasks as the object name
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tasks'] = context['tasks'].filter(user=self.request.user) # this allows us to filter the tasks based on the user that is logged in. This will only show the tasks that are created by the user that is logged in
+
+       # context['count'] = context['tasks'].filter(complete = False).count() # this will count the number of tasks that are not completed
+        return context
+        
+
+
+
 
 class TaskDetail(LoginRequiredMixin,DetailView):   # THis is used to go into the details of a each individual task
     model = Task
@@ -52,15 +62,18 @@ class TaskCreate(LoginRequiredMixin,CreateView):
     model = Task
     template_name = 'base/createTask.html'
     
-    fields = 'title,description'.split(',')# this is used to specify the fields that we want to display in the form. if we want to display all the fields, we can use '__all__' instead of the list of fields. split is used to convert the string into a list of strings
+    fields = 'title,description,complete'.split(',')# this is used to specify the fields that we want to display in the form. if we want to display all the fields, we can use '__all__' instead of the list of fields. split is used to convert the string into a list of strings
 
     success_url = '/' # the purpose of this is to redirect to the home page after creating a new task
     # success_url = reverse_lazy('tasks') # another way to redirect to the home page after creating a new task. this is used when the url is not defined in the urls.py
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(TaskCreate, self).form_valid(form)
 
 class EditTask(LoginRequiredMixin,UpdateView):
     model = Task
     template_name = 'base/createTask.html'
-    fields = "__all__"
+    fields = 'title,description,complete'.split(',')
     success_url = '/' # the purpose of this is to redirect to the home page after creating a new task
 
 class DeleteTask(LoginRequiredMixin,DeleteView):
