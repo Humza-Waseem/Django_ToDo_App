@@ -10,7 +10,14 @@
 #*  It filters the tasks based on the user and returns the context data. The function is used in a class-based view to provide the context data to the template. This helps in customizing the data based on the user's request and providing a personalized experience.
 
 
-2.##################  Then I added the functionality in the logout button and made it a form so that i could add the csrf token to it., then I added the functionality to redirect the user to the login page after logging out by setting the loginRequiredMixin in the taskList view.
+#   Then I added the functionality in the logout button and made it a form so that i could add the csrf token to it., then I added the functionality to redirect the user to the login page after logging out by setting the loginRequiredMixin in the taskList view.
+
+
+
+#######################  Commit (UserRegistration) : I added teh user registration functionality with two methods one with class based views and the other with function based views. The class based view is used to render the form and the function based view is used to save the form data to the database. The form is created using the UserCreationForm which is a built-in form in django. The form is saved using the save() method and the user is logged in using the login() method. The user is then redirected to the home page after registration. The form is validated using the is_valid() method and the error message is displayed if the form is not valid
+
+
+
 
 
    
