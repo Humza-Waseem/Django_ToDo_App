@@ -1,6 +1,11 @@
 <div class = "navBar"> 
     {% if request.user.is_authenticated %}
+        
+        {% if request.user.username == 'lalo'%}
+        <h1><i>Mr. Lalo Salamanca</i> is Here babyyyy!!</h1>
+        {% else%}
         <h2> Welcome Mr. {{ request.user}} !</h2>
+        {% endif%}
         {% comment %} <a href = "{% url 'UserLogout'%}" >Logout</a> {% endcomment %}
 
         <form action="{% url 'UserLogout' %}" method="post">

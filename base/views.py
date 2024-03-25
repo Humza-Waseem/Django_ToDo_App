@@ -7,7 +7,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.contrib.auth import logout  
+from django.contrib.auth import login # this is used to login the user after they have registered
+from django.contrib.auth.forms import UserCreationForm # this allows us to create a form for the user to register, we can customize this form as well
 
 
 
@@ -29,13 +30,39 @@ from django.contrib.auth import logout
 #     logout(request)   # user presses the logout button then its session will be deleted from the database, and the user will be logged out
 #     return redirect('tasksHome')   # and the user is redirected to the home page..
 
+
 class UserLogin(LoginView):
     template_name = 'base/UserLogin.html'
     fields = '__all__'
-    redirect_authenticated_user = True # this allows us to redirect the user to the home page if they are already logged in. Meaning, if a user is alreadt login we will not show the login page to him again.
+    
+    
+    redirect_authenticated_user = True # this allows us to redirect the user to the home page if they are already logged in. Meaning, if a user is already login we will not show the login page to him again even if the user enters the address in the search bar.
     
     def get_success_url(self):
         return reverse_lazy('tasksHome')
+
+
+#this is a Function Based View for registering the user
+def RegisterUser(request):  
+    page = 'register' 
+   
+    form = UserCreationForm()
+    if request.method == 'POST':
+        
+        # form = UserCreationForm(request.POST)   # using MyUserCreationForm because it has our custom user model form
+        if form.is_valid():
+            user = form.save(commit=False)#commit = False means that we are not saving the form yet
+            user.username = user.username
+            user.save()
+            login(request,user)
+            return redirect('tasksHome')
+        else:
+            messages.error(request,'An error occured during registration')
+    context = {'form':form,'page':page}
+    return render(request,'base/UserLogin.html',context)
+
+# class RegisterUser(FormView):
+
     
     
 class TaskList(LoginRequiredMixin,ListView):  

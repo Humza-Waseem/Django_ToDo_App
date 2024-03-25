@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path,include
 # from . import views
-from .views import TaskList,TaskDetail,TaskCreate,EditTask,DeleteTask,UserLogin
+from .views import TaskList,TaskDetail,TaskCreate,EditTask,DeleteTask,UserLogin,RegisterUser
 from django.contrib.auth.views import LogoutView
 
 
@@ -9,7 +9,7 @@ urlpatterns = [
     path('',TaskList.as_view(),name = 'tasksHome'),
     path('UserLogin/',UserLogin.as_view(), name = "UserLogin"),
     path('Logout/',LogoutView.as_view(next_page = 'UserLogin'), name = 'UserLogout'),#we can set the next_page to the login page here as well as in the views.py file at the cbv of UserLogout
-    
+    path('RegisterUser/',RegisterUser, name = "RegisterUser"),
 
     # path('Logout/',UserLogout,name = 'UserLogout'),
 
