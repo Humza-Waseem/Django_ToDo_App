@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth import login # this is used to login the user after they have registered
 from django.contrib.auth.forms import UserCreationForm # this allows us to create a form for the user to register, we can customize this form as well
+from django.views.generic import FormView
 
 
 
@@ -61,7 +62,29 @@ def RegisterUser(request):
     context = {'form':form,'page':page}
     return render(request,'base/UserLogin.html',context)
 
-# class RegisterUser(FormView):
+
+class RegisterUser(FormView):    
+
+    template_name = 'base/UserLogin.html'
+    form_class = UserCreationForm
+    redirect_authenticated_user = True
+    success_url = reverse_lazy('tasksHome')
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.save()
+        if user is not None:
+            login(self.request,user)
+        return super(RegisterUser, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page'] = self.request.GET.get('page', 'register')  # Default to register
+        return context
+    def get(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('tasksHome')
+        return super(RegisterUser, self).get(*args, **kwargs)
 
     
     

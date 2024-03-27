@@ -9,7 +9,9 @@ urlpatterns = [
     path('',TaskList.as_view(),name = 'tasksHome'),
     path('UserLogin/',UserLogin.as_view(), name = "UserLogin"),
     path('Logout/',LogoutView.as_view(next_page = 'UserLogin'), name = 'UserLogout'),#we can set the next_page to the login page here as well as in the views.py file at the cbv of UserLogout
-    path('RegisterUser/',RegisterUser, name = "RegisterUser"),
+
+    # path('RegisterUser/',RegisterUser, name = "RegisterUser"),
+    path('RegisterUser/', RegisterUser.as_view() , name = "RegisterUser"),
 
     # path('Logout/',UserLogout,name = 'UserLogout'),
 
