@@ -1,3 +1,6 @@
+{% include 'base/main.html' %}
+
+{% block content %}
 <div class = "navBar"> 
     {% if request.user.is_authenticated %}
         
@@ -54,3 +57,4 @@
     {% endfor %}
 {% endif%}
     
+{% endblock content%}

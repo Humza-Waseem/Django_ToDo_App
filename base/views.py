@@ -95,6 +95,7 @@ class TaskList(LoginRequiredMixin,ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tasks'] = context['tasks'].filter(user=self.request.user) # this allows us to filter the tasks based on the user that is logged in. This will only show the tasks that are created by the user that is logged in
+        
 
        # context['count'] = context['tasks'].filter(complete = False).count() # this will count the number of tasks that are not completed
         return context
