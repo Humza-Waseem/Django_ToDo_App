@@ -5,20 +5,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{request.user.username}}'s Tasks</title>
+    {% if request.user.is_authenticated %}
+    <title>{{request.user.username|title}}'s Tasks</title>
+    {% else %}
+    <title>Manage Tasks with ToDO</title>
+    {% endif %}
     
     <link rel='stylesheet' type='text/css' media= 'screen' href="{% static 'styles/main.css' %}">
 
 
-{% comment %} 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">  {% endcomment %}
+
     
 </head>
 
 <body>
-    
+    {% comment %} {% include 'navBar.html'%} {% endcomment %}
+<div class="container">
+    {% block content %}
+
+    {% endblock %}
+</div>    
  
     
 </body>

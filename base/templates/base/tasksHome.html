@@ -1,30 +1,62 @@
 {% include 'main.html' %}
 
 {% block content %}
-<div class = "navBar"> 
+
+    <div class = "navBar"> 
+            {% if request.user.is_authenticated %}
+
+    
+                <form action="{% url 'UserLogout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+    
+                <a href = "">Profile</a>
+            {% else %}
+                <a href = "{% url 'UserLogin' %}" > Login </a>
+                <p> You are Logged Out! </p>
+            {% endif %}
+            
+    </div>
+    <div class = "HeaderBar">
     {% if request.user.is_authenticated %}
         
         {% if request.user.username == 'lalo'%}
         <h1><i>Mr. Lalo Salamanca</i> is Here babyyyy!!</h1>
+        <h2> You have {{count}} incomplete Task{{count|pluralize:"s"}}</h2>
         {% else%}
-        <h2> Welcome Mr. {{ request.user}} !</h2>
+        <h2> Welcome Mr. {{ request.user|title}} !</h2>
+        <h3> You have {{count}} incomplete Task{{count|pluralize:"s"}}</h3>
         {% endif%}
-        {% comment %} <a href = "{% url 'UserLogout'%}" >Logout</a> {% endcomment %}
+        <hr>
+    {% endif%}
+      
 
-        <form action="{% url 'UserLogout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
+    </div>
 
-        <a href = "" >Profile</a>
-    {% else %}
-        <a href = "{% url 'UserLogin' %}" > Login </a>
-        <p> You are Logged Out! </p>
-        {% comment %} <a href = "{% url 'register' %}" >Register</a> {% endcomment %}
+<h2>Your Tasks</h2>
+
+
+
+{% comment %} <div id="search-add-wrapper">
+    <form method="GET" style="display: flex;">
+        <input type='text' name='search-area' placeholder="Search your tasks" value="{{search_input}}">
+        <input class="button" type="submit" value='Search'>
+    </form>
+    {% if tasks|length > 0 %}
+    <a id="add-link" href="{% url 'task-create' %}">&#x2b;</a>
     {% endif %}
-</div>
+</div> {% endcomment %}
 
-<h2>Your Tasks           </h2>
+
+
+
+<form method = 'GET' action = "">
+    {% csrf_token %}
+    <input type = 'text' name = 'TextIamSearching' placeholder = 'Search for Tasks' value = "{{ search_input }}">
+    <button type = "submit" class = "button" value = "Searchhh">
+</form>
+
 <a href = "{% url 'create-task' %}" >Create New ToDo</a>
 <hr>
 {% if tasks is None %}

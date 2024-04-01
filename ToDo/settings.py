@@ -84,6 +84,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+LOGIN_URL = 'UserLogin' # this is the url where the user will be redirected if they are not logged in and try to access a page that requires login
 
 
 # Password validation
