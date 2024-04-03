@@ -10,7 +10,7 @@
     {% if request.user.is_authenticated %}
         
         <h2> Welcome Mr. {{ request.user|title}} !</h2>
-        <h4> You have {{count}} incomplete Task{{count|pluralize:"s"}}</h4>
+        <h4> You have {{count}} incomplete Task{{count|pluralize:"s"}}!!!</h4>
         
         <hr>
     {% endif%}
@@ -49,18 +49,8 @@
       {% for task in tasks %}
 
     {% comment %} <div class="task-wrapper" data-position="{{task.pk}}"> {% endcomment %}
-           <a href = "{% url 'task' task.id%}" >   {{ task.title}}</a> 
-                  <sub><strong>DueDate: </strong>{{ task.dueDate}} </sub>
-                  <h3>Complete : <SMALL> {{task.complete}}</SMALL> </h3>
-              </h3>
-           {% if task.description == '' %}
-                  <span> No Description</span>
-           {% else%}
-               <span>  {{ task.description}} </span>
-        
-           {% endif%}
-
-               {% comment %} {% if task.complete = TRUE %} {% endcomment %}
+        <div class="taskHeader" id= "headOfTask">
+           <h2><a href = "{% url 'task' task.id%}" >   {{ task.title}}</a></h2> 
            {% if task.user == request.user  %}
             
           
@@ -94,6 +84,19 @@
              </a>
            </div>
            {% endif %}
+        </div>
+                  <sub><strong>DueDate: </strong>{{ task.dueDate}} </sub>
+                  <h5>Complete : <SMALL> {{task.complete}}</SMALL> </h5>
+              </h3>
+           {% if task.description == '' %}
+                  <span> No Description</span>
+           {% else%}
+                  <span>  {{ task.description}} </span>
+        
+           {% endif%}
+
+               {% comment %} {% if task.complete = TRUE %} {% endcomment %}
+           
            {% comment %} {% endif %} {% endcomment %}
            <hr>
       {% endfor%}
