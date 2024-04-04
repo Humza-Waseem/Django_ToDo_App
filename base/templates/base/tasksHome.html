@@ -9,7 +9,7 @@
     <div class = "HeaderBar">
     {% if request.user.is_authenticated %}
         
-        <h2> Welcome Mr. {{ request.user|title}} !</h2>
+        <h2 > Welcome Mr. {{ request.user|title}} !</h2>
         <h4> You have {{count}} incomplete Task{{count|pluralize:"s"}}!!!</h4>
         
         <hr>
@@ -20,17 +20,24 @@
 
 
 
-<h3>Your Tasks</h3>
 
- <div id="search-add-wrapper">
+
+ <div class="search-add-wrapper">
     <form method="GET" style="display: flex;">
-        
-        <input name='q' placeholder="Search your tasks" value="{{search_input}}" type =  "text">
+      <div class="search-container">
+        <input class = "search-field" name='q' placeholder="Search your tasks" value="{{search_input}}" type =  "text">
+        <input class="search-btn" type= "submit" value = "{{search_input}}" >
+          <i class="fas fa-search"></i> </input>
         {% comment %} <input class="button" type="submit" value='Searchhhh'> {% endcomment %}
+      </div>
+        
     </form>
-    {% if tasks|length > 1 %}
+    <div class = "add-task-wrapper">
+    <h3>Your Tasks</h3>
+    {% if tasks|length > 0 %}
     <a id="add-link" href="{% url 'create-task' %}">&#x2b;</a> 
     {% endif %} 
+    </div>
 </div>  
 
 
@@ -49,9 +56,19 @@
       {% for task in tasks %}
 
     {% comment %} <div class="task-wrapper" data-position="{{task.pk}}"> {% endcomment %}
-        <div class="taskHeader" id= "headOfTask">
-           <h2><a href = "{% url 'task' task.id%}" >   {{ task.title}}</a></h2> 
-           {% if task.user == request.user  %}
+      {% if task.complete == True%}
+      <div class = "checkerHeader" >
+        <h2>
+          <a href = "{% url 'task' task.id%}" >   {{ task.title}}</a>
+        </h2>
+      </div>
+      {% else%}
+      <div class="taskHeader" id= "headOfTask">
+        <h2>
+          <a href = "{% url 'task' task.id%}" >   {{ task.title}}</a>
+        </h2>
+      {% endif%}
+        {% if task.user == request.user  %}
             
           
            <div class="room__topRight">
@@ -86,8 +103,9 @@
            {% endif %}
         </div>
                   <sub><strong>DueDate: </strong>{{ task.dueDate}} </sub>
-                  <h5>Complete : <SMALL> {{task.complete}}</SMALL> </h5>
+                  {% comment %} <h5>Complete : <SMALL> {{task.complete}}</SMALL> </h5> {% endcomment %}
               </h3>
+              
            {% if task.description == '' %}
                   <span> No Description</span>
            {% else%}
@@ -103,6 +121,35 @@
     {% endif%}
   </div>
        
+</div>
+
+
+
+
+
+
+<div id="tasklist" class="task-items-wrapper">
+  {% for task in tasks %}
+  <div class="task-wrapper" data-position="{{task.pk}}">
+      <div class="task-title">
+          {% if task.complete %}
+          <div class="task-complete-icon"></div>
+          {% else%}
+          <div class="task-incomplete-icon"></div>
+          {% endif%}
+      </div>
+      <div class="task-controls">
+          
+          <span class="handle">&nbsp;&#10247;</span>
+      </div>
+  </div>
+
+  
+  <div style="text-align: center; padding-bottom: 10px; line-height: 1em;">
+      <h3>No new tasks are created.</h3>
+      <h3>Create a <a style="text-decoration: none; color: #e53935;" href="{% url 'create-task' %}">New task</a> ! </h3>
+  </div>
+  {% endfor %}
 </div>
 {% endblock content%}
 
