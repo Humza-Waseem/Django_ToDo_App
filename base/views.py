@@ -112,6 +112,10 @@ class TaskDetail(LoginRequiredMixin,DetailView):   # THis is used to go into the
     model = Task
     template_name = 'base/task.html'
     context_object_name = 'task'
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['tasks'] = context['tasks'].filter(user=self.request.user) # this allows us to filter the tasks based on the user that is logged in. This will only show the tasks that are created by the user that is logged in
+    #     return context
 
 class TaskCreate(LoginRequiredMixin,CreateView):
     model = Task

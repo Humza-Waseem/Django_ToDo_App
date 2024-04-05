@@ -1,3 +1,4 @@
+
 body {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
@@ -14,6 +15,7 @@ body {
   font-family: "Playfair Display", serif;
   font-optical-sizing: auto;
   font-style: normal;
+  /* font-size: large; */
   
 }
 .HeaderBar{
@@ -44,12 +46,12 @@ body {
 
 
 .MainPage{
-  max-width: 700px;
+  max-width: 650px;
   margin: auto;
   background-color: #ffffff;
   box-shadow:  4px 4px 13px -4px  rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 4px 4px 13px -4px rgba(0,0,0,0.75);
-  border-radius: 8px;
+  border-radius: 15px;
 }
 
 a{
@@ -104,22 +106,32 @@ p{
 .add-task-wrapper{
 display: flex;
 
+align-items: center;
+justify-content: center;
+
 }
 .add-task-wrapper a{
+    font-size: 75px;
+    padding-top: -14px;
+    padding-left: 158px;
 
+}
+.add-task-wrapper h3{
  
-  font-size: 50px; /* Adjust the value to your desired size */
-
+  font-size: 40px;
 }
 /*!************************* Search bar settings**********************/
 .search-container {
   position: relative;
-  display: flex;
-  align-items: center;
-  width: 400px; /* Adjust width as needed */
-  background-color: #f1f1f1;
-  border-radius: 25px;
-  overflow: hidden;
+    display: flex;
+    align-items: center;
+    width: 500px;
+    background-color: #f1f1f1;
+    border-radius: 25px;
+    overflow: hidden;
+    justify-content: center;
+    /* place-content: center; */
+    margin-left: 65px;
   
 }
 
@@ -228,6 +240,12 @@ display: flex;
   text-decoration: none; /* Remove underline */
   font-size: 14px;
   padding-left: 518px ;
+}
+
+
+
+.task-items-wrapper{
+justify-content: center;
 }
 
 

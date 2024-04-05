@@ -10,7 +10,7 @@
     {% if request.user.is_authenticated %}
         
         <h2 > Welcome Mr. {{ request.user|title}} !</h2>
-        <h4> You have {{count}} incomplete Task{{count|pluralize:"s"}}!!!</h4>
+        <h5> You have {{count}} incomplete Task{{count|pluralize:"s"}}!!!</h5>
         
         <hr>
     {% endif%}
@@ -53,9 +53,8 @@
             </div>
      
     {% else %}
-      {% for task in tasks %}
+   {% for task in tasks %}
 
-    {% comment %} <div class="task-wrapper" data-position="{{task.pk}}"> {% endcomment %}
       {% if task.complete == True%}
       <div class = "checkerHeader" >
         <h2>
@@ -100,10 +99,30 @@
             </svg>
              </a>
            </div>
-           {% endif %}
-        </div>
-                  <sub><strong>DueDate: </strong>{{ task.dueDate}} </sub>
-                  {% comment %} <h5>Complete : <SMALL> {{task.complete}}</SMALL> </h5> {% endcomment %}
+        {% endif %}
+      </div>
+                  {% comment %} <sub><strong>DueDate: </strong>{{ task.dueDate}} </sub> {% endcomment %}
+                  
+
+                  {% comment %} <div id="tasklist" class="task-items-wrapper">
+                    
+                    <div class="task-wrapper" data-position="{{task.pk}}">
+                        <div class="task-title">
+
+                          
+                            {% if task.complete %}
+                            <div class="task-complete-icon"></div>
+                            {% else%}
+                            <div class="task-incomplete-icon"></div>
+                            {% endif%}
+                        </div>
+                        <div class="task-controls">
+                            
+                            <span class="handle">&nbsp;&#10247;</span>
+                        </div>
+                      
+                    </div> {% endcomment %}
+
               </h3>
               
            {% if task.description == '' %}
@@ -117,17 +136,18 @@
            
            {% comment %} {% endif %} {% endcomment %}
            <hr>
-      {% endfor%}
-    {% endif%}
+    {% endfor%}
+    {% endif%} 
   </div>
        
 </div>
+{% endblock content%} 
 
 
 
 
 
-
+{% comment %} 
 <div id="tasklist" class="task-items-wrapper">
   {% for task in tasks %}
   <div class="task-wrapper" data-position="{{task.pk}}">
@@ -140,7 +160,7 @@
       </div>
       <div class="task-controls">
           
-          <span class="handle">&nbsp;&#10247;</span>
+        <span class="handle">&nbsp;&#10247;</span>
       </div>
   </div>
 
@@ -150,8 +170,7 @@
       <h3>Create a <a style="text-decoration: none; color: #e53935;" href="{% url 'create-task' %}">New task</a> ! </h3>
   </div>
   {% endfor %}
-</div>
-{% endblock content%}
+</div>{% endcomment %}
 
 
 

@@ -2,10 +2,45 @@
 
 {% block content%}
 <div class="MainPage">
+  {% comment %} <h1>{{task.title}}</h1> {% endcomment %}
+  {% comment %} <h4>{{task.description}}</h4>
+  <h6>{{task.dueDate}}</h5> {% endcomment %}
     
-<h1>{{task}}</h1>
+
+<div id="tasklist" class="task-items-wrapper">
+    
+    
+    <div class="task-wrapper" data-position="{{task.pk}}">
+        <div class="task-title">
+            {% if task.complete %}
+            <div class="task-complete-icon"></div>
+            <h1>{{task.title}}</h1>
+            <h4>{{task.description}}</h4>
+            {% comment %} <h6>{{task.dueDate}}</h5>  {% endcomment %}
+
+            {% else%}
+            <div class="task-incomplete-icon"></div>
+            <h1>{{task.title}}</h1>
+            <h4>{{task.description}}</h4>
+            {% comment %} <h6>{{task.dueDate}}</h5>  {% endcomment %}
+            {% endif%}
+        </div>
+        <div class="task-controls">
+            
+          <span class="handle">&nbsp;&#10247;</span>
+        </div>
+    </div>
+  
+    
+    {% comment %} <div style="text-align: center; padding-bottom: 10px; line-height: 1em;">
+        <h3>No new tasks are created.</h3>
+        <h3>Create a <a style="text-decoration: none; color: #e53935;" href="{% url 'create-task' %}">New task</a> ! </h3>
+    </div> {% endcomment %}
+   
+  </div>
+
 </div>
-{% endblock %}
+{% endblock content%}
 
 
         
