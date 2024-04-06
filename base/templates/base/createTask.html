@@ -2,6 +2,7 @@
 {% block content%}
 
 <div class = "MainPage">
+    <h2> Create Task</h2>
     <form method= "POST" action = "">
         {% csrf_token %}
         {{form.as_p}}

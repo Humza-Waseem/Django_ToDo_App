@@ -60,17 +60,19 @@
         <h2>
           <a href = "{% url 'task' task.id%}" >   {{ task.title}}</a>
         </h2>
-      </div>
+      
       {% else%}
       <div class="taskHeader" id= "headOfTask">
         <h2>
           <a href = "{% url 'task' task.id%}" >   {{ task.title}}</a>
         </h2>
+
       {% endif%}
         {% if task.user == request.user  %}
             
           
-           <div class="room__topRight">
+        
+          <div class="room__topRight">
              <a href="{% url 'edit-task' task.id %}">
             <svg enable-background="new 0 0 24 24" height="32" viewBox="0 0 24 24" width="32"
               xmlns="http://www.w3.org/2000/svg">
@@ -98,43 +100,23 @@
               </path>
             </svg>
              </a>
-           </div>
+          </div>
+        </div>
+        {% if task.description%}
+        <p>{{task.description}} </p>
+        {% else%}
+        <p>No Description</p>
+        {% endif%}
+           
+           
         {% endif %}
+        
       </div>
-                  {% comment %} <sub><strong>DueDate: </strong>{{ task.dueDate}} </sub> {% endcomment %}
                   
-
-                  {% comment %} <div id="tasklist" class="task-items-wrapper">
-                    
-                    <div class="task-wrapper" data-position="{{task.pk}}">
-                        <div class="task-title">
-
-                          
-                            {% if task.complete %}
-                            <div class="task-complete-icon"></div>
-                            {% else%}
-                            <div class="task-incomplete-icon"></div>
-                            {% endif%}
-                        </div>
-                        <div class="task-controls">
-                            
-                            <span class="handle">&nbsp;&#10247;</span>
-                        </div>
-                      
-                    </div> {% endcomment %}
 
               </h3>
               
-           {% if task.description == '' %}
-                  <span> No Description</span>
-           {% else%}
-                  <span>  {{ task.description}} </span>
         
-           {% endif%}
-
-               {% comment %} {% if task.complete = TRUE %} {% endcomment %}
-           
-           {% comment %} {% endif %} {% endcomment %}
            <hr>
     {% endfor%}
     {% endif%} 
