@@ -20,14 +20,16 @@
         </form>
       </div>
       <div class = "navBar__right">
-        <a href = "">Profile</a>
+        <a href = "">@{{user.username}}</a>
       </div>
+    {% else %}
       <div class = "navBar__left" id = "Login">
-        {% else %}
-        <a href = "{% url 'UserLogin' %}" > Login </a>
-        <p> You are Logged Out! </p>
-        {% endif %}
-      
+       
+      <ul class = "nav-list">
+      <li> <a href = "{% url 'UserLogin' %}" > Login </a></li> 
+      {% comment %} <li>  <p> You are Logged Out! </p> </li> {% endcomment %}
+    {% endif %}
+      </ul>
     
       </div>
   </nav>

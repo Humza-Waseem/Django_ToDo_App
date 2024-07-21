@@ -1,4 +1,5 @@
 {% extends "main.html" %} 
+{% load static%}
 
 {% block content %}
 
@@ -9,8 +10,8 @@
     <div class = "HeaderBar">
     {% if request.user.is_authenticated %}
         
-        <h2 > Welcome Mr. {{ request.user|title}} !</h2>
-        <h5> You have {{count}} incomplete Task{{count|pluralize:"s"}}!!!</h5>
+        <h1 > Welcome Mr. {{ request.user|title}} !</h1>
+        <h5> You have {{count}} Task{{count|pluralize:"s"}} TO-DO </h5>
         
         <hr>
     {% endif%}
@@ -23,20 +24,33 @@
 
 
  <div class="search-add-wrapper">
-    <form method="GET" style="display: flex;">
-      <div class="search-container">
+    <form method="GET" >
+      {% comment %} <div class="search-container">
         <input class = "search-field" name='q' placeholder="Search your tasks" value="{{search_input}}" type =  "text">
         <input class="search-btn" type= "submit" value = "{{search_input}}" >
           <i class="fas fa-search"></i> </input>
-        {% comment %} <input class="button" type="submit" value='Searchhhh'> {% endcomment %}
+      </div> {% endcomment %}
+
+      <div class="search-container">
+        <div class="search-bar" id="searchBar">
+          <input type="text" class="search-input" id="search" placeholder="Search..." name = "search">
+          <span class="close-icon" id="closeIcon">&times;</span>
+        </div>
+        <img src="{% static 'images/search.svg' %}" alt="searchIcon" class = "search-button" id = "searchButton">
       </div>
+       <script src="{% static 'js/script.js'%}"></script>
+       {% comment %} <script src="js/script.js"></script> {% endcomment %}
+       <!-- <script src="../"></script> -->
+        
+         {% comment %} <script src="{% static 'js/search.js'%}"></script> {% endcomment %}
+
         
     </form>
     <div class = "add-task-wrapper">
-    <h3>Your Tasks</h3>
-    {% if tasks|length > 0 %}
-    <a id="add-link" href="{% url 'create-task' %}">&#x2b;</a> 
-    {% endif %} 
+    <h3>Tasks TO DO - <span>{{tasks|length}}</span></h3>
+    {% comment %} {% if tasks|length > 0 %} {% endcomment %}
+    <div class ="add-Task-Button"><a id="add-link" href="{% url 'create-task' %}">&#x2b;</a></div>
+    {% comment %} {% endif %}  {% endcomment %}
     </div>
 </div>  
 
