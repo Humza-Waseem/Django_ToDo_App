@@ -1,9 +1,9 @@
 {% include 'main.html' %}
 {% block content%}
-<div class = "MainPage">
+<div class = "MainPage-Userlogin">
 {% if page == 'register'%}
 
-<h1>  Let's Register  </h1>
+<div class= "text-big">  Let's Register  </div>
 <div class = "loginForm">
     <form method = "POST" action ="">
         {% csrf_token %}
@@ -19,7 +19,7 @@
  {% comment %} the login page: {% endcomment %}
 
 {% else%}
-<h1>  Hey! Let's Login  </h1>
+<div class= "text-big">  Hey! Let's Login  </div>
 <div class = "registerForm">
     <form method = "POST" action ="">
         {% csrf_token %}

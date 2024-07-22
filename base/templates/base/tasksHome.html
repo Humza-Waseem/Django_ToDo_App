@@ -8,135 +8,135 @@
 
 
     <div class = "HeaderBar">
-    {% if request.user.is_authenticated %}
+      {% if request.user.is_authenticated %}
         
-        <h1 > Welcome Mr. {{ request.user|title}} !</h1>
-        <h5> You have {{count}} Task{{count|pluralize:"s"}} TO-DO </h5>
+        <div class = "text-big" ><h1 > Welcome Mr. {{ request.user|title}} !</h1></div>
+        <div class = "text-small"> <h5 class = "text-small"> You have {{count}} Task{{count|pluralize:"s"}} TO-DO </h5></div>
         
-        <hr>
-    {% endif%}
+      {% endif%}
       
 
     </div>
 
+        {% comment %} <hr>  {% endcomment %}
 
 
 
 
- <div class="search-add-wrapper">
-    <form method="GET" >
+    <div class="search-add-wrapper">
+      {% comment %}<form method="GET" >
       {% comment %} <div class="search-container">
         <input class = "search-field" name='q' placeholder="Search your tasks" value="{{search_input}}" type =  "text">
         <input class="search-btn" type= "submit" value = "{{search_input}}" >
           <i class="fas fa-search"></i> </input>
-      </div> {% endcomment %}
+      </div> 
 
-      <div class="search-container">
-        <div class="search-bar" id="searchBar">
-          <input type="text" class="search-input" id="search" placeholder="Search..." name = "search">
-          <span class="close-icon" id="closeIcon">&times;</span>
+        <div class="search-container">
+         <div class="search-bar" id="searchBar">
+           <input type="text" class="search-input" id="search" placeholder="Search..." name = "search">
+           <span class="close-icon" id="closeIcon">&times;</span>
+         </div>
+          <img src="{% static 'images/search.svg' %}" alt="searchIcon" class = "search-button" id = "searchButton">
         </div>
-        <img src="{% static 'images/search.svg' %}" alt="searchIcon" class = "search-button" id = "searchButton">
-      </div>
-       <script src="{% static 'js/script.js'%}"></script>
-       {% comment %} <script src="js/script.js"></script> {% endcomment %}
-       <!-- <script src="../"></script> -->
-        
-         {% comment %} <script src="{% static 'js/search.js'%}"></script> {% endcomment %}
 
-        
-    </form>
-    <div class = "add-task-wrapper">
-    <h3>Tasks TO DO - <span>{{tasks|length}}</span></h3>
-    {% comment %} {% if tasks|length > 0 %} {% endcomment %}
-    <div class ="add-Task-Button"><a id="add-link" href="{% url 'create-task' %}">&#x2b;</a></div>
-    {% comment %} {% endif %}  {% endcomment %}
-    </div>
-</div>  
+       <script src="{% static 'js/script.js'%}"></script>
+      </form>{% endcomment %}
+  
+
+
+         <div class = "add-task-wrapper">
+        <div class = "task-to-do">Tasks TO DO - <span>{{tasks|length}}</span></div>
+        {% comment %} {% if tasks|length > 0 %} {% endcomment %}
+        <div class ="add-Task-Button"><a id="add-link" href="{% url 'create-task' %}">&#x2b;</a></div>
+        {% comment %} {% endif %}  {% endcomment %}
+         </div>
+    </div>  
 
 
  <hr>
-
-  <div id="tasklist" class="task-items-wrapper">
-    {% comment %} {% if {{count}}   == 0 %} {% endcomment %}
-    {% if tasks is None%}
+  <div class = "Tasks-list">
+  {% comment %} <div id="tasklist" class="task-items-wrapper"> {% endcomment %}
+   {% if tasks is None%}
 
             <div style="text-align: center; padding-bottom: 10px; line-height: 1em;">
                 <h3>No items to see.....</h3>
                 <h3>Create a <a style="text-decoration: none; color: #e53935;" href="{% url 'create-task' %}      ">New task</a> ! </h3>
             </div>
      
-    {% else %}
-   {% for task in tasks %}
-
-      {% if task.complete == True%}
-      <div class = "checkerHeader" >
-        <h2>
-          <a href = "{% url 'task' task.id%}" >   {{ task.title}}</a>
-        </h2>
-      
-      {% else%}
+   {% else %}
+    {% for task in tasks %}
+    
       <div class="taskHeader" id= "headOfTask">
-        <h2>
-          <a href = "{% url 'task' task.id%}" >   {{ task.title}}</a>
-        </h2>
-
-      {% endif%}
-        {% if task.user == request.user  %}
+          <div class="input-group mb-3">
             
-          
-        
-          <div class="room__topRight">
-             <a href="{% url 'edit-task' task.id %}">
-            <svg enable-background="new 0 0 24 24" height="32" viewBox="0 0 24 24" width="32"
-              xmlns="http://www.w3.org/2000/svg">
-              <title>edit</title>
-              <g>
-                <path d="m23.5 22h-15c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h15c.276 0 .5.224.5.5s-.224.5-.5.5z" />
-              </g>
-              <g>
-                <g>
-                  <path
-                    d="m2.5 22c-.131 0-.259-.052-.354-.146-.123-.123-.173-.3-.133-.468l1.09-4.625c.021-.09.067-.173.133-.239l14.143-14.143c.565-.566 1.554-.566 2.121 0l2.121 2.121c.283.283.439.66.439 1.061s-.156.778-.439 1.061l-14.142 14.141c-.065.066-.148.112-.239.133l-4.625 1.09c-.038.01-.077.014-.115.014zm1.544-4.873-.872 3.7 3.7-.872 14.042-14.041c.095-.095.146-.22.146-.354 0-.133-.052-.259-.146-.354l-2.121-2.121c-.19-.189-.518-.189-.707 0zm3.081 3.283h.01z" />
-                </g>
-                <g>
-                  <path
-                    d="m17.889 10.146c-.128 0-.256-.049-.354-.146l-3.535-3.536c-.195-.195-.195-.512 0-.707s.512-.195.707 0l3.536 3.536c.195.195.195.512 0 .707-.098.098-.226.146-.354.146z" />
-                </g>
-              </g>
-            </svg>
+              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+            
+          </div>
+          <div class= "text-big-main">
+           <a href = "{% url 'task' task.id%}" >   {{ task.title}}</a>
+          </div>
+      
+       {% comment %} {% endif%} {% endcomment %}
+        {% if task.user == request.user  %}
+
+          {% comment %} <div class="room__topRight">
+            <div class = "icon"></div> <a href="{% url 'edit-task' task.id %}">
+              <img src="{% static 'images/pencil-square.svg'%}" alt="editButton" width="20" height="32">
+              <div class="hover-text">Search</div>
              </a>
-             <a href="{% url 'delete-task' task.id %}">
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+             </div>
+             <div class = "icon"></div><a href="{% url 'delete-task' task.id %}">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="22" height="32" viewBox="0 0 32 32">
               <title>Delete</title>
               <path
                 d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z">
               </path>
             </svg>
-             </a>
-          </div>
+              </a>
+             </div>
+          </div> {% endcomment %}
+          <div class="room__topRight">
+            <div class="icon-container">
+                <div class="icon"></div>
+                <a href="{% url 'edit-task' task.id %}">
+                    <img src="{% static 'images/pencil-square.svg'%}" alt="editButton" width="20" height="32">
+                    <div class="hover-text">Edit Task</div>
+                </a>
+            </div>
+            <div class="icon-container">
+                <div class="icon"></div>
+                <a href="{% url 'delete-task' task.id %}">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="22" height="32" viewBox="0 0 32 32">
+                        <title>Delete</title>
+                        <path
+                            d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z">
+                        </path>
+                    </svg>
+                    <div class="hover-text">Delete</div>
+                </a>
+            </div>
         </div>
-        {% if task.description%}
-        <p>{{task.description}} </p>
-        {% else%}
-        <p>No Description</p>
-        {% endif%}
-           
-           
         {% endif %}
-        
       </div>
+
+      {% comment %} </div> {% endcomment %}
                   
 
-              </h3>
+              
               
         
-           <hr>
-    {% endfor%}
-    {% endif%} 
-  </div>
+    <hr class ="Custom-HR">
+   {% endfor%}
+  {% endif%} 
+ </div>
+
+ 
        
 </div>
+
+
+
+
 {% endblock content%} 
 
 

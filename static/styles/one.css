@@ -17,6 +17,69 @@ body {
   /* background: rgb(27 17 41); */
   background-image: url(https://res.cloudinary.com/imagist/image/fetch/q_auto,f_auto,c_scale,w_2240/https%3A%2F%2Ftodoist.com%2Fstatic%2Fhome-teams%2Fintro%2Fbackground.png);
 } 
+:root{
+  --mainColor: #de5347;
+  --mainBlack: black;
+}
+.Custom-HR{
+  width: 100%;
+  /* color: #ff3d00; */
+  border: 1px solid;
+  color: var(--mainColor);
+  /* display: flex; */
+  /* margin: auto; */
+  flex-direction: column;
+
+}
+.icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-text {
+  visibility: hidden;
+  /* width: 60px;
+   */
+   width: auto;
+  height: 20px;
+  /* background-color: orange; */
+  background: #a39d9d;
+  color: var(--mainBlack);
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position above the icon */
+  left: 50%;
+  margin-left: -60px; /* Center the text */
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 12px;
+  font-family: "Montserrat";
+  align-items: center
+;
+justify-content: center;
+text-align: center;
+}
+
+.icon-container:hover .hover-text {
+  visibility: visible;
+  opacity: 1;
+}
+.taskHeader .text-big a{
+  font-size: 22px;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  /* position: absolute; */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* margin-bottom: 35px; */
+  padding-bottom: 19px;
+}
+
+
  h1, h2, h3, h4, h5, h6 {
   font-family: "Playfair Display", serif;
  /* font-family: "Montserrat"; */
@@ -86,18 +149,36 @@ body {
   text-decoration: none;
   /* background-color: #bbbebe; */
   background-color: #074242;
-  background-color: #acc1c1;
+  background-color: #acc1c1; 
+  /* background: linear-gradient(45deg, #dc7b72, #bc3c30); */
+  /* background: #de5347; */
+  background: var(--mainColor);
+  height: 150px;
+  margin-top: 34px;
+}
+.HeaderBar h1, .HeaderBar h5{
+margin-top: 20px;
 }
 .taskHeader {
   display: flex;
   justify-content: center;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 11px;
+  margin: auto;
+  width: 20p;
+  height: 31px;
 }
 
 .taskHeader a{
   text-decoration: none;
     color: #000000;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 22px;
+    /* font-weight: bold;
+     */
+     font-family: "Montserrat";
+     font-weight: 400;
 
 }
 .checkerHeader{
@@ -114,25 +195,38 @@ body {
   
 
 }
-
+.MainPage-Userlogin{
+  max-width: 800px;
+  margin: auto;
+  background-color: #ffffff;
+   box-shadow: 4px 4px 13px -4px rgba(0, 0, 0, 0.75); 
+  -webkit-box-shadow: 4px 4px 13px -4px rgba(0, 0, 0, 0.75); 
+  border-radius: 15px;
+  /* min-height: 100px; */
+  /* background: rgb(62 54 76); */
+  width: 704px;
+  border-radius: 20px;
+  /* background: rgb(27 17 41); */
+  background: whitesmoke;
+}
 
 .MainPage{
   max-width: 1104px;
   margin: auto;
   background-color: #ffffff;
-  box-shadow: 4px 4px 13px -4px rgba(0, 0, 0, 0.75);
-  -webkit-box-shadow: 4px 4px 13px -4px rgba(0, 0, 0, 0.75);
+   box-shadow: 4px 4px 13px -4px rgba(0, 0, 0, 0.75); 
+  -webkit-box-shadow: 4px 4px 13px -4px rgba(0, 0, 0, 0.75); 
   border-radius: 15px;
-  min-height: 100px;
-  background: rgb(62 54 76);
+  /* min-height: 100px; */
+  /* background: rgb(62 54 76); */
   width: 1021px;
-  border-radius: 10px;
+  border-radius: 20px;
   /* background: rgb(27 17 41); */
   background: whitesmoke;
 }
 
 a{
-  color: #000000; /* Set text color for profile link */
+  color: var(--mainBlack); /* Set text color for profile link */
   text-decoration: none; /* Remove underline */
   font-size: 14px;
 
@@ -142,7 +236,17 @@ a:hover{
    
 }
 
-
+.input-group {
+  position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    /* width: 100%; */
+    margin-left: 26px;
+    width: 10%;
+    position: relative;
+    top: 10px;
+}
 
 
 p{
@@ -151,10 +255,11 @@ p{
   font-size: 14px;
 }
 .room__topRight{
-  padding-top: 11px;
-  padding-right: 375px;
-  margin: auto;
-  display: flex;
+  padding-right: 80px;
+    margin: auto;
+    display: flex;
+    padding-bottom: 17px;
+    width: 10%;
 }
 /* .buttonsCRUD > .room__topRight{
   padding-top: 11px;
@@ -194,24 +299,49 @@ justify-content: center;
 
 }
 .add-task-wrapper a{
-    font-size: 75px;
-    /* padding-top: -14px;
-    padding-left: 158px; */
-
+  font-size: 36px;
     text-decoration: none;
+    /* padding-bottom: 10px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
+.form-check-input[type=checkbox] {
+  border-radius: .25em;
+  border-radius: 32px;
+}
+.form-check-input[type=checkbox]:checked{
+  background-color: var(--mainColor);
+}
 .add-Task-Button{
-  background: #bbbebe;
+  background: var(--mainColor);
   border-radius: 54px;
-  width: 50px;
+  width: 46px;
   max-width: 60px;
-  height: 50px;
+  height: 44px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   margin-left: 20px;
+  position: relative;
+  top: 10px;
+  /* margin: auto; */
+  flex-direction: row;
+}
+.alert{
+  font-size: 18px;
+    font-family: "Arial";
+}
+.task-to-do{  
+  position: relative;
+  top: 10px;
+  display: flex;
+  /* margin: auto; */
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat";
 }
 .add-task-wrapper h3{
  
@@ -285,13 +415,17 @@ justify-content: center;
 
 .Register { 
 font-size: 16px;
+align-items: center;
+justify-content: center;
+display: flex;
 }
 .Register > .loginForm, .registerForm{
   display: flex;
   margin: auto;
   padding: 6px;
-  /* justify-content: center;
-  align-items: center; */
+   justify-content: center;
+  
+  align-items: center; 
 }
 .Register > .loginForm, .registerForm input{
 
@@ -329,6 +463,20 @@ justify-content: center;
   border: 1px solid rgb(0, 0, 0);
   margin: auto;
   position: sticky;
+  margin-top: 20px;
+
+}
+.text-big{
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+.text-big-main{
+  font-weight: 400;
+  width: 100%;
 }
   
 
@@ -369,7 +517,8 @@ justify-content: center;
   font-size: 22px;
 }
 #Logout button:hover{
-  color: whitesmoke;
+  /* color: whitesmoke; */
+  color: var(--mainColor);
 }
 #Login a {
   color: #000000; /* Set text color for login link */
@@ -396,6 +545,7 @@ justify-content: center;
 }
 .navBar__right a:hover{
   color: whitesmoke;
+  color: var(--mainColor);
 
 }
 

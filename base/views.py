@@ -10,6 +10,13 @@ from django.urls import reverse_lazy
 from django.contrib.auth import login # this is used to login the user after they have registered
 from django.contrib.auth.forms import UserCreationForm # this allows us to create a form for the user to register, we can customize this form as well
 from django.views.generic import FormView
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+
+
+
+
+
 
 
 
@@ -32,13 +39,24 @@ from django.views.generic import FormView
 #     return redirect('tasksHome')   # and the user is redirected to the home page..
 
 
-class UserLogin(LoginView):
+# class UserLogin(LoginView,SuccessMessageMixin):
+#     template_name = 'base/UserLogin.html'
+#     fields = '__all__'
+    
+    
+#     redirect_authenticated_user = True # this allows us to redirect the user to the home page if they are already logged in. Meaning, if a user is already login we will not show the login page to him again even if the user enters the address in the search bar.
+    
+
+#     def get_success_url(self):
+#         # messages.success( "Logged In as {{self.user}}")
+#         success_message = " Logged in successfully"
+#         return reverse_lazy('tasksHome')
+
+class UserLogin(SuccessMessageMixin, LoginView):
     template_name = 'base/UserLogin.html'
-    fields = '__all__'
-    
-    
-    redirect_authenticated_user = True # this allows us to redirect the user to the home page if they are already logged in. Meaning, if a user is already login we will not show the login page to him again even if the user enters the address in the search bar.
-    
+    redirect_authenticated_user = True# this allows us to redirect the user to the home page if they are already logged in. Meaning, if a user is already login we will not show the login page to him again even if the user enters the address in the search bar.
+    success_message = "Logged in successfully"
+
     def get_success_url(self):
         return reverse_lazy('tasksHome')
 
@@ -57,13 +75,14 @@ def RegisterUser(request):
             user.save()
             login(request,user)
             return redirect('tasksHome')
+            messages.success(request, "Successfully Registered!")
         else:
             messages.error(request,'An error occured during registration')
     context = {'form':form,'page':page}
     return render(request,'base/UserLogin.html',context)
 
 
-class RegisterUser(FormView):    
+class RegisterUser(SuccessMessageMixin,FormView):    
 
     template_name = 'base/UserLogin.html'
     form_class = UserCreationForm
@@ -74,7 +93,9 @@ class RegisterUser(FormView):
         user = form.save(commit=False)
         user.save()
         if user is not None:
+            success_message = "Registered Successfully, You can signIn now"
             login(self.request,user)
+            
         return super(RegisterUser, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -88,8 +109,11 @@ class RegisterUser(FormView):
 
     
     
-class TaskList(LoginRequiredMixin,ListView):  
+class TaskList(SuccessMessageMixin,LoginRequiredMixin,ListView):  
     model = Task
+    success_message = "Task Created Successfully"
+
+    # messages.success(self.request,'welcome to task list')
     template_name = 'base/tasksHome.html'
     context_object_name = 'tasks'   # This is used to specify the name of the object that we want to use in the template. In this case, we are using tasks as the object name
     def get_context_data(self, **kwargs):
@@ -117,7 +141,7 @@ class TaskDetail(LoginRequiredMixin,DetailView):   # THis is used to go into the
     #     context['tasks'] = context['tasks'].filter(user=self.request.user) # this allows us to filter the tasks based on the user that is logged in. This will only show the tasks that are created by the user that is logged in
     #     return context
 
-class TaskCreate(LoginRequiredMixin,CreateView):
+class TaskCreate(SuccessMessageMixin,LoginRequiredMixin,CreateView):
     model = Task
     template_name = 'base/createTask.html'
     
@@ -127,19 +151,24 @@ class TaskCreate(LoginRequiredMixin,CreateView):
     # success_url = reverse_lazy('tasks') # another way to redirect to the home page after creating a new task. this is used when the url is not defined in the urls.py
     def form_valid(self, form):
         form.instance.user = self.request.user
+        success_message = "Task Created Successfully"
+        messages.success(self.request, 'New Task Created')
         return super(TaskCreate, self).form_valid(form)
 
-class EditTask(LoginRequiredMixin,UpdateView):
+class EditTask(SuccessMessageMixin,LoginRequiredMixin,UpdateView):
     model = Task
     template_name = 'base/createTask.html'
     fields = 'title,description,complete'.split(',')
-    success_url = '/' # the purpose of this is to redirect to the home page after creating a new task
+    success_url = reverse_lazy('tasksHome') # the purpose of this is to redirect to the home page after creating a new task
+    success_message = "Task Edited Successfully"
 
-class DeleteTask(LoginRequiredMixin,DeleteView):
+class DeleteTask(SuccessMessageMixin,LoginRequiredMixin,DeleteView):
     model = Task
     template_name = 'base/delete.html'
     context_object_name = 'obj'
     success_url = '/' # the purpose of this is to redirect to the home page after creating a new task
+    # messages.success( "Task Deleted successfully!")
+    success_message = "Task Deleted Successfully"
 
 #! Restricting Pages
 #*  The mixin of LoginRequiredMixin will not allow the user to access the page if they are not logged in. It will redirect them to the login page.  We are redirected so we need to tell Django where should we be redirected after logging in. This is done by setting the LOGIN_URL in the settings.py file.
@@ -153,6 +182,7 @@ class DeleteTask(LoginRequiredMixin,DeleteView):
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
+
 
 class AuthMixin(LoginRequiredMixin):
     login_url = '/login/'  # Redirect URL for unauthenticated users
