@@ -8,7 +8,7 @@
     <form method = "POST" action ="">
         {% csrf_token %}
         {{form.as_p}} 
-        <input type ="submit" name = "Login">
+        <div class="btn-submit"><input type ="submit" name = "Login"></div>
         
     </form>   
 </div>
@@ -24,7 +24,8 @@
     <form method = "POST" action ="">
         {% csrf_token %}
         {{form.as_p}} 
-        <input type ="submit" name = "Login">
+        <div class="btn-submit"><input type ="submit" name = "Login"></div>
+        <!-- <input type ="submit" name = "Login"> -->
         
     </form>  
 </div>

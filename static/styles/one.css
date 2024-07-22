@@ -195,8 +195,15 @@ margin-top: 20px;
   
 
 }
+.btn-submit input{
+  background: var(--mainColor);
+  border: none;
+  /* border-radius: 1px; */
+  color: white;
+  font-family: "Montserrat";
+}
 .MainPage-Userlogin{
-  max-width: 800px;
+  max-width: 500px;
   margin: auto;
   background-color: #ffffff;
    box-shadow: 4px 4px 13px -4px rgba(0, 0, 0, 0.75); 
@@ -208,6 +215,7 @@ margin-top: 20px;
   border-radius: 20px;
   /* background: rgb(27 17 41); */
   background: whitesmoke;
+  height: 300px;         
 }
 
 .MainPage{
